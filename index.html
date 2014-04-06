@@ -1,0 +1,107 @@
+<html>
+
+    <head>
+        <title>Browsing Anonymously</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        </head>
+
+        <body>
+            <table id="results">
+                <tr>
+                    <th>Browser Characteristic</th>
+                    <th>Value</th>
+                </tr>
+
+                <tr>
+                    <td>User Agent</td>
+                    <td id="user-agent"></td>
+                </tr>
+
+                <tr>
+                    <td>Language</td>
+                    <td id="language"></td>
+                </tr>
+
+                <tr>
+                    <td>Plugins</td>
+                    <td id="plugins"></td>
+                </tr>
+
+                <tr>
+                    <td>Time Zone Offset</td>
+                    <td id="time-zone"></td>
+                </tr>
+
+                <tr>
+                    <td>Screen Size and Color Depth</td>
+                    <td id="screen-size"></td>
+                </tr>
+
+
+            </table>
+
+        <script>
+
+            //sourced from http://valve.github.io/blog/2013/07/14/anonymous-browser-fingerprinting/
+            // Assuming jQuery in scope
+
+            $('#user-agent').text(navigator.userAgent);
+            // "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36"
+
+            navigator.language
+            $('#language').text(navigator.language);
+            // "en-US"
+
+            var plugins = $.map(navigator.plugins, function(p){
+                var mimeTypes = $.map(p, function(mimeType){
+                    return [mimeType.type, mimeType.suffixes].join('~');
+                }).join(',');
+                return [p.name, mimeTypes].join('\n');
+            });
+
+            $('#plugins').text(plugins.join('\n'));
+
+
+            $.each(plugins, function(i, p){
+                if(p.length > 80){
+                    console.log(p.substring(0, 77) + '...');
+                } else{
+                    console.log(p);
+                }
+            });
+
+            /*
+            Shockwave Flash:Shockwave Flash 11.7 r700:application/x-shockwave-flash~swf,a... 
+            Chrome Remote Desktop Viewer:This plugin allows you to securely access other ... 
+            Widevine Content Decryption Module:Enables Widevine licenses for playback of ... 
+            Native Client::application/x-nacl~nexe 
+            Chrome PDF Viewer::application/pdf~pdf,application/x-google-chrome-print-prev... 
+            Google Talk Plugin Video Accelerator:Google Talk Plugin Video Accelerator ver... 
+            Google Talk Plugin:Version: 4.0.1.0:application/googletalk~googletalk 
+            Google Talk Plugin Video Renderer:Version: 4.0.1.0:application/o1d~o1d 
+            Shockwave Flash:Shockwave Flash 11.2 r202:application/x-shockwave-flash~swf,a...
+            */
+
+            screen.colorDepth
+            // 24
+
+            $('#time-zone').text(new Date().getTimezoneOffset());
+            // -240
+
+            $('#screen-size').text(screen.width + 'x' + screen.height + 'x' + screen.colorDepth);
+
+            !!window.localStorage
+            // true
+
+            !!window.sessionStorage
+            // true
+
+        </script>
+
+
+        </body>
+
+
+
+
+</html>
