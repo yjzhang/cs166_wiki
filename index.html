@@ -6,6 +6,9 @@
         </head>
 
         <body>
+
+            <h2>Browser Characteristics</h2>
+
             <table id="results">
                 <tr>
                     <th>Browser Characteristic</th>
@@ -39,6 +42,54 @@
 
 
             </table>
+
+            <h2>IP characteristics</h2>
+
+        <table id="ip-results">
+                <tr>
+                    <th>Characteristic</th>
+                    <th>Value</th>
+                </tr>
+
+                <tr>
+                    <td>IP Address </td>
+                    <td id="query"></td>
+                </tr>
+
+                <tr>
+                    <td>Country</td>
+                    <td id="country"></td>
+                </tr>
+
+                <tr>
+                    <td>Region</td>
+                    <td id="region"></td>
+                </tr>
+
+                <tr>
+                    <td>City</td>
+                    <td id="city"></td>
+                </tr>
+
+                <tr>
+                    <td>ZIP Code</td>
+                    <td id="zip"></td>
+                </tr>
+
+                <tr>
+                    <td>Latitude</td>
+                    <td id="lat"></td>
+                </tr>
+
+                <tr>
+                    <td>Longitude</td>
+                    <td id="lon"></td>
+                </tr>
+
+
+            </table>
+
+
 
         <script>
 
@@ -95,6 +146,16 @@
 
             !!window.sessionStorage
             // true
+
+            // geolocation:
+            $.ajax('http://ip-api.com/json')
+             .done(function(data) {
+                console.log(data);   
+                for(key in data) {
+                    $('#'+key).text(data[key]);
+                };
+                
+             });
 
         </script>
 
