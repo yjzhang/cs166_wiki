@@ -1,0 +1,15 @@
+*{
+	font-family: helvetica;
+}
+
+header{
+	margin-top: 100px;
+	text-align:center;
+}
+
+header > #title {
+	font-family: monospace;
+	letter-spacing: 10px;
+	margin-top: 15px;
+	font-size: 28px;
+}
